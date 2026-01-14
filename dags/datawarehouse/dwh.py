@@ -91,7 +91,7 @@ def core_table():
                 else:
                     insert_rows(cur,conn,schema,transformed_row)
 
-        ids_to_delete = set(table_ids) - ids_in_json
+        ids_to_delete = set(table_ids) - current_video_ids
 
         if ids_to_delete:
             delete_rows(cur,conn,schema,ids_to_delete)
