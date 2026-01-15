@@ -23,12 +23,12 @@ default_args = {
 }
 
 with DAG(
-    dag_id='produce_json',
+    dag_id="produce_json",
     default_args=default_args,
-    description='DAG to produce JSON file with raw data',
-    schedule='0 14 * * *',
+    description="DAG to produce JSON file with raw data",
+    schedule="0 14 * * *",
     catchup=False
-) as dag:
+) as dag_produce:
     
     # Define tasks
     playlist_id = get_playlist_id()
@@ -40,12 +40,12 @@ with DAG(
     playlist_id >> video_ids >> extract_data >> save_to_json_task
 
 with DAG(
-    dag_id='update_db',
+    dag_id="update_db",
     default_args=default_args,
-    description='DAG to process JSON file and insert data into staging and core schemas',
-    schedule='0 15 * * *',
+    description="DAG to process JSON file and insert data into staging and core schemas",
+    schedule="0 15 * * *",
     catchup=False
-) as dag:
+) as dag_update:
     
     # Define tasks
     update_staging = staging_table()

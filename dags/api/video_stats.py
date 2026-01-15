@@ -15,6 +15,7 @@ API_KEY = Variable.get("API_KEY") #os.getenv("API_KEY")
 CHANNEL_HANDLE = Variable.get("CHANNEL_HANDLE") #os.getenv("CHANNEL_HANDLE")
 maxResults = 50
 
+
 @task
 def get_playlist_id():
     try:    
@@ -41,7 +42,7 @@ def get_playlist_id():
 
         channel_playlist_id = channel_items["contentDetails"]["relatedPlaylists"]["uploads"]
 
-        print(channel_playlist_id)
+        print(f"Channel playlist ID: {channel_playlist_id}")
         return channel_playlist_id
 
     except requests.exceptions.RequestException as e:
@@ -66,8 +67,8 @@ def get_video_ids(playlist_id):
                 url += f"&pageToken={pageToken}"
 
             response = requests.get(url)
-            print("PRINT URL***:")
-            print(url)
+            print(f"PRINT URL***: {url}")
+            # print(url)
 
             response.raise_for_status()
 
@@ -144,10 +145,10 @@ if __name__ == "__main__":
     # get_playlist_id()
     playlist_id = get_playlist_id()
     
-    print(get_video_ids(playlist_id))
+    print(f"get_video_ids(playlist_id): {get_video_ids(playlist_id)}")
 
     video_ids = get_video_ids(playlist_id)
-    print(extract_video_data(video_ids))
+    print(f"extract_video_data(video_ids): {extract_video_data(video_ids)}")
 
     video_data = extract_video_data(video_ids)
 
